@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: explorer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./seed/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mcp-server:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      MCP_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/explorer
+      MCP_ANTHROPIC_API_KEY: ${MCP_ANTHROPIC_API_KEY:-}
+    stdin_open: true
+
+volumes:
+  pgdata:
