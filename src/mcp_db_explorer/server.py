@@ -3,7 +3,7 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import asyncpg
 from anthropic import AsyncAnthropic
@@ -23,7 +23,7 @@ class AppContext:
 
 
 # Module-level reference set during lifespan, used by resources
-_app_context: Optional[AppContext] = None
+_app_context: AppContext | None = None
 
 
 @asynccontextmanager
