@@ -1,5 +1,9 @@
 # MCP DB Explorer
 
+[![CI](https://github.com/yasunchukandriy/mcp-db-explore/actions/workflows/ci.yml/badge.svg)](https://github.com/yasunchukandriy/mcp-db-explore/actions/workflows/ci.yml)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 A Model Context Protocol (MCP) server that lets you explore a PostgreSQL database using natural language. Ask a question in English or German, and Claude translates it to SQL, executes it safely, and returns the results.
 
 ## Quick Start
