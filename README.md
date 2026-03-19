@@ -6,6 +6,14 @@
 
 A Model Context Protocol (MCP) server that lets you explore a PostgreSQL database using natural language. Ask a question in English or German, and Claude translates it to SQL, executes it safely, and returns the results.
 
+## Features
+
+- **Natural language queries** — ask in English or German, get SQL + results
+- **5 MCP tools** — list tables, describe schema, NL query, raw SQL, sample data
+- **Read-only safety** — blocks INSERT/UPDATE/DELETE/DROP, validates all queries
+- **SQL injection protection** — table name validation, query timeout, row limits
+- **Docker ready** — one-command setup with PostgreSQL and sample e-commerce data
+
 ## Quick Start
 
 ```bash
