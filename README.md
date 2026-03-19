@@ -14,6 +14,71 @@ A Model Context Protocol (MCP) server that lets you explore a PostgreSQL databas
 - **SQL injection protection** — table name validation, query timeout, row limits
 - **Docker ready** — one-command setup with PostgreSQL and sample e-commerce data
 
+## Demo
+
+<details>
+<summary><b>query</b> — natural language to SQL</summary>
+
+```
+User: "What are the top 3 customers by total spending?"
+
+Generated SQL:
+  SELECT c.name, SUM(oi.quantity * oi.unit_price) AS total
+  FROM customers c
+  JOIN orders o ON o.customer_id = c.id
+  JOIN order_items oi ON oi.order_id = o.id
+  GROUP BY c.name
+  ORDER BY total DESC
+  LIMIT 3;
+
+Results (3 rows):
+  name              | total
+  ------------------+----------
+  Hans Mueller      | 1,245.80
+  Anna Schmidt      |   892.50
+  Klaus Weber       |   634.20
+```
+</details>
+
+<details>
+<summary><b>list_tables</b> — database overview</summary>
+
+```
+Tables in database:
+
+  Table          | Rows
+  ---------------+------
+  customers      |   10
+  categories     |    5
+  products       |   15
+  orders         |   12
+  order_items    |   17
+```
+</details>
+
+<details>
+<summary><b>describe_table</b> — schema details</summary>
+
+```
+Table: orders
+
+  Column       | Type         | Nullable | Default
+  -------------+--------------+----------+------------------
+  id           | integer      | NO       | nextval(...)
+  customer_id  | integer      | NO       |
+  status       | varchar(20)  | NO       | 'pending'
+  created_at   | timestamptz  | NO       | now()
+
+  Constraints:
+    orders_pkey          PRIMARY KEY (id)
+    orders_customer_fk   FOREIGN KEY (customer_id) → customers(id)
+
+  Indexes:
+    idx_orders_customer  ON (customer_id)
+    idx_orders_status    ON (status)
+```
+</details>
+
 ## Quick Start
 
 ```bash
